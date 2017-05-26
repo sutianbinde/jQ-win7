@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+	<!-- by su tian tian 20170202 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>桌面</title>
+    <style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		li{
+			list-style: none;
+		}
+		img{
+			border: none 0;
+		}
+		body{
+			height:500px;
+			background:url("images/d_bg.jpg") center center;
+			background-size:100%;
+			user-select:none;
+			-moz-user-select:none;
+			-webkit-user-select:none;
+		}
+		.footer{
+			height:50px;
+			width:100%;
+			position:fixed;
+			bottom:0;
+			left:0;
+			background:rgba(255,255,255,0.2);
+			border-top:1px solid rgba(0,0,0,0.3);
+			z-index:999;
+		}
+		.start{
+			float:left;
+			width:70px;
+			height:50px;
+			background:url("images/windows.png") 10px 2px no-repeat;
+			transition:background-image 0.5s ease;
+		}
+		.start:hover{
+			background-image:url("images/windows_hover.png");
+		}
+		.menu{
+			position:fixed;
+			bottom:51px;
+			left:0;
+			width:407px;
+			height:592px;
+			border-radius:5px;
+			background-image:url("images/menu.png");
+			display:none;
+			z-index:9;
+		}
+		.footer .icon{
+			float:left;
+			width:70px;
+			height:50px;
+			background:url("images/icons.png") 14px -190px no-repeat;
+			border:1px solid rgba(255,255,255,0);
+			border-width:0 1px 0 1px;
+		}
+		.footer .icon:hover{
+			border-color: rgba(255,255,255,0.3);
+			background-color: rgba(255,255,255,0.1);
+		}
+		.dsk_icon{
+			width:96px;
+			height: 83px;
+			border-radius:3px;
+			border:2px solid rgba(255,255,255,0);
+			background:rgba(255,255,255,0);
+			padding:8px 0;
+			transition:background 0.5s ease;
+			position:fixed;
+			top:0;
+			left:0;
+			z-index:2;
+			display:none;
+		}
+		.dsk_icon:hover{
+			border:2px solid rgba(255,255,255,0.3);
+			background:rgba(255,255,255,0.1);
+			padding:8px 0;
+			transition:background 0.5s ease;
+		}
+		.dsk_icon.editing{
+			border:2px solid rgba(255,255,255,0);
+			background:rgba(255,255,255,0);
+		}
+		.dsk_icon .icon{
+			background:url("images/icons.png") 0px -95px no-repeat;
+			width:60px;
+			height:64px;
+			margin:0 auto;
+		}
+		.dsk_icon .hasDust{
+			background:url("images/icons.png") -320px -95px no-repeat;
+		}
+		.dsk_icon input{
+			width:60px;
+			display: block;
+			margin:3px auto 0;
+			text-align:center;
+			display:none;
+		}
+		.dsk_icon p{
+			text-align:center;
+			font-size:14px;
+			height: 16px;
+			color:#fff;
+			padding-top:3px;
+		}
+		.dsk_icon.active{
+			background:rgba(255,255,255,0.4);
+			border:2px solid rgba(255,255,255,0.5);
+		}
+		.footer .time{
+			float:right;
+			width:100px;
+			height:50px;
+			
+		}
+		.footer .time span{
+			display:block;
+			color:#fff;
+			text-align:center;
+			padding:6px 0 0 0;
+			font-family:arial;
+			font-size:14px;
+		}
+		.footer .little_icons{
+			float:right;
+			width:235px;
+			height:50px;
+			background:url("images/little_icons.png") 0px 14px no-repeat;	
+		}
+		.mask{
+			position:fixed;
+			height:0px;
+			width:0px;
+			z-index:99;
+			border:1px solid rgba(73,199,240,0.7);
+			background:rgba(2,58,148,0.1);
+			display:none;
+		}
+		.win{
+			width:682px;
+			height: 373px;
+			position: fixed;
+			left: 30px;
+			top: 30px;
+			z-index: 99;
+			background:  rgba(255,255,255,0.7) url("images/win_bg.jpg") no-repeat;
+			border: 5px solid rgba(9,48,106,0.8);
+			border-radius: 5px;
+			box-shadow: 0 0 5px 3px rgba(0,0,0,0.6);
+			border-width:30px 5px 5px;
+		}
+		.winbtns{
+			width:103px;
+			height: 21px;
+			position: absolute;
+			top: -31px;
+			right: -3px;
+			background: url("images/win_icon.png");
+		}
+		.winbtns a{
+			float: left;
+			height: 21px;
+		}
+		.winbtns a:nth-child(1){
+			width: 29px;
+		}
+		.winbtns a:nth-child(2){
+			width: 27px;
+		}
+		.winbtns a:nth-child(3){
+			width: 47px;
+		}
+		.winbtns a:hover{
+			box-shadow: 0 0 2px 2px #0bfefb inset;
+		}
+
+		.context_menu{
+			width: 250px;
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 1000;
+			border: 1px solid #bababa;
+			background: #fff;
+			box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+			font-size: 13px;
+			display: none;
+		}
+		.context_menu .group{
+			border-top: 1px solid #e9e9e9;
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+		.context_menu li{
+			padding: 4px 25px;
+		}
+		.context_menu li:hover{
+			background:#e6edf6;
+		}
+		.context_menu span{
+			float: right;
+			color:#a1a192;
+		}
+
+		.win_TL, .win_TR, .win_BL, .win_BR{
+			position: absolute;
+			height: 10px;
+			width: 10px;
+			background: rgba(0,0,0,0);
+		}
+		.win_TL{
+			top: -30px;
+			left: -5px;
+			cursor: nw-resize;
+		}
+		.win_TR{
+			top: -30px;
+			right: -5px;
+			cursor: sw-resize;
+		}
+		.win_BL{
+			bottom: -5px;
+			left: -5px;
+			cursor: ne-resize;
+		}
+		.win_BR{
+			bottom: -5px;
+			right: -5px;
+			cursor: se-resize;
+		}
+		.win_T, .win_R, .win_B, .win_L{
+			background: rgba(0,0,0,0);
+			width: 5px;
+			height: 5px;
+			position: absolute;
+		}
+		.win_T{
+			top:-30px;
+			left: 10px;
+			width: 660px;
+			cursor: s-resize;
+		}
+		.win_R{
+			top:0px;
+			right: -5px;
+			height: 360px;
+			cursor:w-resize;
+		}
+		.win_B{
+			bottom:-5px;
+			left: 10px;
+			width: 660px;
+			cursor: s-resize;
+		}
+		.win_L{
+			top:0px;
+			left: -5px;
+			height: 360px;
+			cursor:w-resize;
+		}
+
+		/* 日历 */
+		#calender{
+			position: fixed;
+			right: 0;
+			bottom: 51px;
+			background: #fff;
+			font-size: 12px;
+			padding: 10px 20px;
+			border:1px solid #999;
+			display: none;
+		}
+		#calender table{
+			line-height: 24px;
+		}
+		#calender td{
+			cursor: pointer;
+			width: 30px;
+			text-align: center;
+			border: 1px solid #fff;
+		}
+		#calender .other-mouse{
+			cursor: default;
+		}
+		#calender .other-mouse span{
+			cursor: pointer;
+		}
+		#calender td:hover{
+			background: #e5f1ff;
+			color: #0066cc;
+		}
+		#calender .title *{
+			display: inline-block;
+			margin: 5px 10px;
+			line-height: 22px;
+			cursor: pointer;
+		}
+		#nowTime{
+			width: 67px;
+			text-align: center;
+		}
+		#calender .title button{
+			width: 50px;
+			cursor: pointer;
+			height: 24px;
+			margin-left: 0;
+		}
+		#calender .title a{
+			padding: 0 8px;
+			text-align: center;
+		}
+		#calender td span{
+			display: block;
+		}
+		#calender .title a:hover{
+			background: #e5f1ff;
+			color: #0066cc;
+		}
+		#calender .activeTd{
+			border: 1px solid #2479dc;
+			background: #e5f1ff;
+			color: #0066cc;
+		}
+
+		#calender .wrap{
+			position: relative;
+			width: 240px;
+			height: 200px;
+			overflow: hidden;
+		}
+		#calenderContent{
+			position: absolute;
+			top: 0;
+			left:-240px;
+			width: 720px;
+			transition: left 0.5s;
+		}
+		#calender .box{
+			float: left;
+			width: 240px;
+			height: 200px;
+		}
+    </style>
+    
+</head>
+<body>
+	<!-- 桌面图标 -->
+	<div class="icon_cont">
+		<div class="dsk_icon recycle">
+			<div typeName="recycle" class="icon"></div>
+			<p class="name">回收站</p>
+			<input type="text" />
+		</div>
+		<div class="dsk_icon">
+			<div typeName="computer" class="icon" style="background-position:0px -6px;"></div>
+			<p class="name">我的电脑</p>
+			<input type="text" />
+		</div>
+		<div class="dsk_icon">
+			<div typeName="QQMusic" class="icon" style="background-position:-204px -6px;"></div>
+			<p class="name">QQ音乐</p>
+			<input type="text" />
+		</div>
+		<div class="dsk_icon">
+			<div typeName="webstorm" class="icon" style="background-position:-96px -6px;"></div>
+			<p class="name">webstorm</p>
+			<input type="text" />
+		</div>
+		<div class="dsk_icon">
+			<div class="icon" style="background-position:-96px -95px;"></div>
+			<p class="name">新建文件夹</p>
+			<input type="text"></input>
+		</div>
+		<div class="dsk_icon">
+			<div typeName="QQ" class="icon" style="background-position:-204px -95px;"></div>
+			<p class="name">QQ</p>
+			<input type="text" />
+		</div>
+		<div class="dsk_icon">
+			<div typeName="HBuilder" class="icon" style="background-position:-414px -6px;"></div>
+			<p class="name">HBuilder</p>
+			<input type="text" />
+		</div>
+	</div>
+	
+	<!-- 底部 -->
+	<div class="footer">
+		<div class="start"></div>
+		<!-- 开始菜单 -->
+		<div class="menu"></div>
+		<!--
+		<div class="icon" style="background-position:14px -346px"></div>
+		<div class="icon" style="background-position:14px -409px"></div>
+		<div class="icon" style="background-position:-128px -347px"></div>
+		<div class="icon" style="background-position:-53px -346px"></div>
+		<div class="icon" style="background-position:-128px -409px"></div>
+		<div class="icon" style="background-position:-274px -347px"></div>
+		-->
+
+		<div id="calender">
+			<div class="title"><a>&lt;</a><span id="nowTime"></span><a>&gt;</a><button>今天</button></div>
+			<div class="wrap">
+				<div id="calenderContent">
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="time"><span>14:56</span><span>2017/2/2</span></div>
+		<div class="little_icons"></div>
+	</div>
+
+	<!-- 多选遮罩 -->
+	<div class='mask'></div>
+
+	<!-- 弹窗测试 -->
+	<!-- <div class='win'>
+		<div class="winbtns">
+			<a></a>
+			<a></a>
+			<a></a>
+		</div>
+		<div class="win_TL"></div>
+		<div class="win_TR"></div>
+		<div class="win_BL"></div>
+		<div class="win_BR"></div>
+		<div class="win_T"></div>
+		<div class="win_R"></div>
+		<div class="win_B"></div>
+		<div class="win_L"></div>
+	</div>-->
+	<style>
+		
+
+	</style>
+
+	<!-- 右键菜单 -->
+	<div class="context_menu">
+		<ul class="group">
+			<li><span>Ctrl+V</span>查看大图标(V)</li>
+			<li><span>→</span>排序方式</li>
+			<li class="refresh"><span>Ctrl+E</span>刷新(E)</li>
+		</ul>
+		<ul class="group">
+			<li><span>Ctrl+C</span>复制(C)</li>
+			<li><span>Ctrl+X</span>剪切(X)</li>
+			<li><span>Ctrl+V</span>粘贴(V)</li>
+		</ul>
+		<ul class="group">
+			<li class="newFile"><span>Ctrl+Shift+E</span>新建文件夹(N)</li>
+		</ul>
+		<ul class="group">
+			<li><span></span>创建快捷方式</li>
+			<li class="deleteThis"><span>Ctrl+O</span>删除(O)</li>
+			<li class="reload"><span>Ctrl+O</span>恢复(R)</li>
+			<li class="rename"><span>Ctrl+E</span>重命名(E)</li>
+		</ul>
+		<ul class="group">
+			<li><span></span>属性</li>
+		</ul>
+	</div>
+	
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script>
+	
+	$("body").css("height",$(window).height());
+
+	//开始菜单
+	$(".start").mousedown(function(){
+		$(".menu").toggle(10);
+		return false;
+	});
+
+	//点击空余地方的时候
+	$(document).mousedown(function(){
+		//隐藏开始菜单
+		$(".menu").hide(0);
+		//去除当前选中项
+		$(".dsk_icon").removeClass("active");
+
+		//如果有真正重命名的icon，需要确认重命名
+		doreName();
+
+		//隐藏右键菜单
+		$(".context_menu").hide();
+
+		//隐藏日历
+		$("#calender").hide();
+
+	});
+	//确认重命名的方法
+	function doreName(){
+		//console.log("触发了确认重命名函数");
+		var remaneInput = $(".dsk_icon input:visible");
+		if(remaneInput.length>0){
+			remaneInput.siblings("p").text(remaneInput.hide().val()).show();
+			remaneInput.parent().removeClass("editing");
+		}
+	}
+
+	/*$(".dsk_icon").click(function(){
+		console.log(22);
+		doreName();
+		$(this).addClass("active").siblings().removeClass("active");
+		return false;
+	});*/
+
+	//调用图标排列的方法
+	showIcons();
+	//动态排列图标的方法
+	function showIcons(){
+		var dskIcons = $(".dsk_icon");
+		var ioncsConfig = {
+			oneTime:300,
+			H:103,
+			W:100,
+			Lindex:0,
+			Tindex:-1
+		};
+
+		dskIcons.each(function(index,ele){
+			ioncsConfig.Tindex++;
+			var top = ioncsConfig.Tindex*ioncsConfig.H;
+			if(top>$(window).height()-140){
+				ioncsConfig.Tindex = 0;
+				top = ioncsConfig.Tindex*ioncsConfig.H;
+				ioncsConfig.Lindex++;
+			}
+			var _this = this;
+			var left = ioncsConfig.Lindex*ioncsConfig.W;
+			//参数中的ele也代表this
+			setTimeout(function(){
+				//console.log(this);
+				$(_this).animate({top:top,left:left},ioncsConfig.oneTime).show();
+			},20*index)
+
+		})
+
+	}
+
+	//检测window调整大小的时候
+	var resizeTimer = null;
+	$(window).resize(function(){
+		//使用定时器只让调整执行一次
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function(){
+			showIcons();
+		},200)
+
+	});
+
+
+	//双击重命名(非正常双击，而是在选中情况下再点一次)
+	$(".icon_cont").on("mousedown",".dsk_icon p",function(e){
+
+		if($(this).parent().hasClass("active") && $(".dsk_icon.active").length==1){
+			$(this).parent().addClass("editing").removeClass("active");
+			//console.log("重命名啦");
+			var p = $(this).hide();
+			var input = $(this).siblings("input");
+			input.css("display","block").val(p.text()).focus().select()
+			.keydown(function(e){
+				if(e.keyCode == 13){
+					p.text(input.hide().val()).show().parent().removeClass("editing");
+
+				}else if(e.keyCode == 27){
+					input.hide();
+					p.show().parent().removeClass("editing");
+				}
+			});
+			return false;
+		}
+	});
+
+
+	$(".icon_cont").on("mousedown",".dsk_icon",function(e){
+
+		//如果真正编辑，就不拖动
+		if(!$(this).hasClass("editing")){
+			//return false;
+
+			doreName();
+
+			var activeIcon = $(".dsk_icon.active");
+			if(activeIcon.length>1){
+				window.deletAll = false;
+				window.dragAll = true;
+				activeIcon.each(function(index,ele){
+					doDragone.call(this, "dragAll" , index==activeIcon.length-1);
+				});
+			}else{
+				$(this).addClass("active").siblings().removeClass("active");
+				doDrag.call(this);
+			}
+		}
+
+		//拖动多个中的一个
+		function doDragone(dragAll,ifLast){
+			var cloneDom = $(this).clone().css("opacity","0.5").appendTo("body");
+			var disX = e.pageX - $(this).position().left;
+			var disY = e.pageY - $(this).position().top;
+			var _this = this;
+			var dskIcons = $(".dsk_icon");
+
+			$(document).on("mousemove.iconDrag",function(e){
+				cloneDom.css({left:e.pageX-disX,top:e.pageY-disY});
+			});
+
+			$(document).on("mouseup.iconDrag",function(e){
+				$(document).off(".iconDrag");
+
+				var left = cloneDom.position().left;
+				var top = cloneDom.position().top;
+				left = Math.round(left/100)*100;
+				top = Math.round(top/103)*103;
+
+				var flag = true;
+				if(top<-50 || left<-50 || top>$(window).height()-103 || left>$(window).width()-50){
+					flag = false;
+				}
+
+				dskIcons.not(".active").each(function(index,ele){
+					if( $(this).position().left==left && $(this).position().top==top){
+
+						flag = false;
+						if($(this).hasClass("recycle") &&  !$(_this).hasClass("recycle")){
+							//$(_this).remove();
+							window.deletAll = true;
+							//return false;  //特别说明：在jQ的each中，return false表示终止遍历，不阻止后面代码执行(类似 break)，return true,表示跳过本次遍历，类似continue
+						}
+
+					}
+				});
+				//代表当前这个可以挪动
+				if(flag){
+					//$(_this).css({left:left,top:top}).removeClass("active");
+					$(_this).attr({myLeft:left,myTop:top});
+				}else{
+					window.dragAll = false;
+				}
+				cloneDom.remove();
+				//console.log(ifLast);
+				if(ifLast){
+					//console.log("删除："+window.deletAll,"拖动"+window.dragAll);
+					if(window.deletAll){
+						activeIcon.remove();
+						$(".recycle .icon").addClass("hasDust");
+					}else if(window.dragAll){
+						activeIcon.each(function(){
+							$(this).css({left:$(this).attr("myLeft")+"px",top:$(this).attr("myTop")+"px"}).removeClass("active");
+						})
+					}
+				}
+
+			});
+		}
+
+		//只拖动一个
+		function doDrag(){
+			var cloneDom = $(this).clone().css("opacity","0.5").appendTo("body");
+			var disX = e.pageX - $(this).position().left;
+			var disY = e.pageY - $(this).position().top;
+			var _this = this;
+			var dskIcons = $(".dsk_icon");
+
+			$(document).on("mousemove.iconDrag",function(e){
+				cloneDom.css({left:e.pageX-disX,top:e.pageY-disY});
+			});
+
+			$(document).on("mouseup.iconDrag",function(e){
+				$(document).off(".iconDrag");
+
+				var left = cloneDom.position().left;
+				var top = cloneDom.position().top;
+				left = Math.round(left/100)*100;
+				top = Math.round(top/103)*103;
+
+				if(top<0){
+					top=0
+				}else if(top>$(window).height()-153){
+					top=$(window).height()-153;
+					top = Math.round(top/103)*103;
+				}
+				if(left<0){
+					left=0
+				}else if(left>$(window).width()-100){
+					left=$(window).width()-100;
+					left = Math.round(left/100)*100;
+				}
+
+
+				var flag = true;
+				dskIcons.each(function(index,ele){
+					if( $(this).position().left==left && $(this).position().top==top ){
+						flag = false;
+						if($(this).hasClass("recycle") &&  !$(_this).hasClass("recycle")){
+							$(_this).remove();
+							$(".recycle .icon").addClass("hasDust");
+							//return false;  //特别说明：在jQ的each中，return false表示终止遍历，不阻止后面代码执行(类似 break)，return true,表示跳过本次遍历，类似continue
+						}
+					}
+				});
+				if(flag){
+					$(_this).css({left:left,top:top}).removeClass("active");
+				}
+				cloneDom.remove();
+			});
+		}
+
+		e.stopPropagation();
+
+	});
+
+	//拖动多选
+	(function(){
+		$(document).on("mousedown",function(e){
+			var dskIcons = $(".dsk_icon");
+			var mask = $(".mask");
+			var startX = e.pageX;
+			var startY = e.pageY;
+			mask.css({left:startX,top:startY}).show();
+			$(document).on("mousemove.select",function(e){
+				var disX = e.pageX - startX;
+				var disY = e.pageY - startY;
+				//console.log(startX,disX);
+				if( disX>=0 && disY>0 ){
+					mask.css({width:disX,height:disY,left:startX,top:startY});
+				}else if( disX>0 && disY<=0 ){
+					mask.css({width:disX,height:-disY,left:startX,top:e.pageY})
+				}else if( disX<=0 && disY<0 ){
+					mask.css({width:-disX,height:-disY,top:e.pageY,left:e.pageX})
+				}else /*if( disX<0 && disY>=0 )*/{
+					mask.css({width:-disX,height:disY,left:e.pageX,top:startY})
+				}
+
+
+				var maskW = mask.width();
+				var maskH = mask.height();
+				var maskL = mask.position().left;
+				var maskT = mask.position().top;
+
+				dskIcons.each(function(index,ele){
+					var eleW = $(ele).width();
+					var eleH = $(ele).height();
+					var eleL = $(ele).position().left;
+					var eleT = $(ele).position().top;
+					if(maskW+maskL<eleL){
+						$(ele).removeClass("active");
+					}else if(eleW+eleL<maskL){
+						$(ele).removeClass("active");
+					}else if(maskT+maskH<eleT){
+						$(ele).removeClass("active");
+					}else if(eleH+eleT<maskT){
+						$(ele).removeClass("active");
+					}else{
+						$(ele).addClass("active");
+					}
+				})
+			});
+
+			$(document).on("mouseup.select",function(e){
+				$(document).off(".select");
+				mask.css({width:0,height:0}).hide();
+			});
+		})
+
+
+	})();
+
+
+
+	//模拟双击效果
+	var dblclickTimer = null;
+	//小图标背景的定位位置
+	var littleIconData = {"QQ":"-128px -409px","computer":"14px -346px","recycle":"14px -409px","QQMusic":"-128px -347px","webstorm":"-53px -346px","HBuilder":"-274px -347px"}
+	$(".icon_cont").on("mousedown",".dsk_icon",function(){
+
+		//如果在300毫秒内两次出发鼠标按下事件，表示双击了
+		if($(this).hasClass("dblclickOn")){
+			$(this).removeClass("dblclickOn");
+			//创建弹窗
+			var win = $("<div class='win'></div>");
+			var winBtns = $('<div class="winbtns"><a></a><a></a><a></a></div>');
+			var fIcon = $('<div class="icon"></div>');
+			var tiyeName = $(this).find("div").attr("typename");
+			if(tiyeName){
+				fIcon.css("background-position",littleIconData[ tiyeName ]);
+				win.css({left:winL,top:winT,"z-index":100,"background-image":"url(images/"+ tiyeName +".jpg)"});
+			}
+
+
+			//随机位置
+			//预设的窗口宽高680  370
+			var winL = ($(window).width()-680)/2 + (Math.random()-0.5)*200;
+			var winT = ($(window).height()-370)/2 + (Math.random()-0.5)*200;
+			if(winL<0){
+				winL=0;
+			}
+			if(winT<0){
+				winT=0;
+			}
+			//修改z-index值
+			$(".win").css("z-index",99);
+			win.css({left:winL,top:winT,"z-index":100});
+
+			//拖拽缩放按钮
+			var winTL = $('<div class="win_TL"></div>');
+			var winTR = $('<div class="win_TR"></div>');
+			var winBL = $('<div class="win_BL"></div>');
+			var winBR = $('<div class="win_BR"></div>');
+
+			var winTLine = $('<div class="win_T"></div>');
+			var winRLine = $('<div class="win_R"></div>');
+			var winBLine = $('<div class="win_B"></div>');
+			var winLLine = $('<div class="win_L"></div>');
+
+			win.append(winBtns, winTL, winTR, winBL, winBR, winTLine, winRLine, winBLine, winLLine);
+			win.appendTo("body").show();
+			fIcon.insertBefore(".time");
+
+			//点击关闭
+			winBtns.find("a").eq(2).click(function(){
+				$(".footer .icon").eq( win.index(".win")).add(win).remove();
+			});
+
+			//点击最小化
+			winBtns.find("a").eq(0).click(function(){
+				win.hide();
+			});
+
+			//防止点击关闭的时候也拖动窗口
+			winBtns.on("mousedown",function(e){
+				return false;
+			});
+
+			//拖动弹窗
+			win.on("mousedown",function(e){
+				//修改z-index值
+				$(".win").css("z-index",99);
+				win.css("z-index",100);
+
+				var disX = e.pageX - win.position().left;
+				var disY = e.pageY - win.position().top;
+				$(document).on("mousemove.winDrag",function(e){
+					var winL = e.pageX - disX;
+					var winT = e.pageY - disY;
+					win.css({left:winL,top:winT});
+				});
+				$(document).on("mouseup.winDrag",function(e){
+					$(document).off(".winDrag");
+				});
+
+
+				return false;
+			});
+
+			/*改变窗口大小开始*/
+			//拖动右下角
+			winBR.on("mousedown",function(e){
+				var winL = win.position().left+5;
+				var winT = win.position().top+30;
+				$(document).on("mousemove.resizeDrag",function(e){
+					win.css({width: e.pageX-winL, height: e.pageY-winT});
+					//winTLine, winRLine, winBLine, winLLine
+					winLLine.add(winRLine).css({height: win.height()-10});
+					winTLine.add(winBLine).css({width: win.width()-20});
+				});
+				$(document).on("mouseup.resizeDrag",function(e){
+					$(document).off(".resizeDrag");
+				});
+				return false;
+			});
+
+			//左下角拖动
+			winBL.mousedown(function(e){
+				var winL = win.position().left + 5;
+				var winT = win.position().top + 30;
+				var winW = win.width();
+				//拖动
+				$(document).on('mousemove.winzoom',function(e){
+					win.css({left : e.pageX-5, height : e.pageY  - winT, width : winL-e.pageX + winW});
+					winLLine.add(winRLine).css({height: win.height()-10});
+					winTLine.add(winBLine).css({width: win.width()-20});
+				});
+
+				$(document).on('mouseup.winzoom',function(e){
+					$(document).off(".winzoom");
+				});
+
+				return false;
+			});
+
+			//左上角拖动
+			winTL.mousedown(function(e){
+				var winL = win.position().left + 5;
+				var winT = win.position().top + 30;
+				var winW = win.width();
+				var winH = win.height();
+				//拖动
+				$(document).on('mousemove.winzoom',function(e){
+					//console.log(win.width(), e.pageX, win.position().left);
+					win.css({left : e.pageX-5,top : e.pageY<5?0:e.pageY-5, height :  winT-e.pageY + winH, width : winL-e.pageX + winW});
+					//console.log(win.width());
+					winLLine.add(winRLine).css({height: win.height()-10});
+					winTLine.add(winBLine).css({width: win.width()-20});
+				});
+
+				$(document).on('mouseup.winzoom',function(e){
+					$(document).off(".winzoom");
+				});
+
+				return false;
+			});
+
+
+			//右上角拖动
+			winTR.mousedown(function(e){
+				var winL = win.position().left + 5;
+				var winT = win.position().top + 30;
+				var winW = win.width();
+				var winH = win.height();
+				//拖动
+				$(document).on('mousemove.winzoom',function(e){
+					win.css({top : e.pageY<5?0:e.pageY-5, height :  winT-e.pageY + winH, width : e.pageX - winL});
+					winLLine.add(winRLine).css({height: win.height()-10});
+					winTLine.add(winBLine).css({width: win.width()-20});
+				});
+
+				$(document).on('mouseup.winzoom',function(e){
+					$(document).off(".winzoom");
+				});
+
+				return false;
+			});
+
+			//winTLine, winRLine, winBLine, winLLine
+			//底部拖动
+			winBLine.mousedown(function(e){
+				var winT = win.position().top + 30;
+				//拖动
+				$(document).on('mousemove.winzoom',function(e){
+					win.css({ height : e.pageY  - winT});
+					winRLine.add(winLLine).css({height:win.height()-10});
+				});
+
+				$(document).on('mouseup.winzoom',function(e){
+					$(document).off(".winzoom");
+				});
+
+				return false;
+			});
+			//右侧拖动
+			winRLine.mousedown(function(e){
+				var winL = win.position().left + 5;
+				//拖动
+				$(document).on('mousemove.winzoom',function(e){
+					win.css({width : e.pageX - winL});
+					winTLine.add(winBLine).css({width:win.width()-40});
+				});
+
+				$(document).on('mouseup.winzoom',function(e){
+					$(document).off(".winzoom");
+				});
+
+				return false;
+			});
+
+			//顶部拖动
+			winTLine.mousedown(function(e){
+				var winT = win.position().top + 30;
+				var winH = win.height();
+				//拖动
+				$(document).on('mousemove.winzoom',function(e){
+					win.css({top : e.pageY<0?0:e.pageY, height :  winT-e.pageY + winH});
+					winRLine.add(winLLine).css({height:win.height()-10});
+				});
+
+				$(document).on('mouseup.winzoom',function(e){
+					$(document).off(".winzoom");
+				});
+
+				return false;
+			});
+
+			//左侧拖动
+			winLLine.mousedown(function(e){
+				var winL = win.position().left + 5;
+				var winW = win.width();
+				//拖动
+				$(document).on('mousemove.winzoom',function(e){
+					win.css({left : e.pageX<0?0:e.pageX, width :  winL-e.pageX + winW});
+					winTLine.add(winBLine).css({width:win.width()-40});
+				});
+
+				$(document).on('mouseup.winzoom',function(e){
+					$(document).off(".winzoom");
+				});
+
+				return false;
+			});
+
+
+			/*改变窗口大小结束*/
+
+
+
+		}
+
+		$(this).addClass("dblclickOn");
+		clearTimeout(dblclickTimer);
+		var _this = this;
+		dblclickTimer = setTimeout(function(){
+			$(_this).removeClass("dblclickOn");
+		},300);
+
+
+	});
+
+	//点击小图标显示窗口
+	$(".footer").on("click",".icon",function(){
+		var index = $(this).index(".footer .icon");
+		$(".win").css("z-index",99).eq(index).toggle().css("z-index",100);
+
+	});
+
+
+	//右键菜单
+	$(document).on("contextmenu",function(e){
+		var L = e.pageX;
+		var T = e.pageY;
+		var menu = $(".context_menu");
+		var menuW = menu.width();
+		var menuH = menu.height();
+		var menuL = menu.position().left;
+		var menuT = menu.position().right;
+		if(L>$(window).width()-menuW){
+			L = L - menuW;
+		}
+		if(T>$(window).height()-menuH){
+			if(T<menuH){
+				T = $(window).height()-menuH;
+			}else{
+				T = T - menuH;
+			}
+		}
+
+		menu.css({left:L, top:T}).show();
+
+		return false;
+	});
+
+	//点击右键菜单的选项
+	$(".context_menu li").on("mousedown",function(e){
+		//console.log($(this).attr("class"));
+		var myClass = $(this).attr("class");
+		switch (myClass){
+			case "refresh": //刷新
+				$(".dsk_icon").css({left:0,top:0});
+				showIcons();
+				break;
+			case "newFile": //新建文件夹
+				var newFile = $('<div class="dsk_icon"><div class="icon" style="background-position:-96px -95px;"></div><p class="name">新建文件夹</p><input type="text" /></div>');
+				newFile.appendTo(".icon_cont");
+				showIcons();
+				setTimeout(function(){
+					newFile.addClass("active").find("p").trigger("mousedown");
+				},20*$(".dsk_icon").length);
+				break;
+			case "rename": //重命名
+				var selectIcon = $(".dsk_icon.active");
+					//console.log(selectIcon.eq(0).find("p"));
+				if(selectIcon.length>0){
+					setTimeout(function(){
+						selectIcon.eq(0).addClass("active").find("p").trigger("mousedown");
+					},20)
+				}
+				break;
+			case "deleteThis": //删除
+				if( $(".recycle.active").length == 0 && $(".dsk_icon.active").length>0 ){
+					$(".dsk_icon.active").fadeOut(200, function(){
+						$(this).remove();
+						$(".recycle .icon").addClass("hasDust");
+					});
+
+				}
+				break;
+			case "reload": //还原回收站
+				if( $(".dsk_icon.active .icon").hasClass("hasDust") ){
+					window.location.reload();
+				}
+				break;
+		}
+	});
+
+
+
+
+	//日期时间
+	setInterval(function(){
+		getNowTime();
+	},1000);
+	getNowTime();
+	function getNowTime(){
+		var time = new Date();
+		var day = time.getFullYear() +"/"+ (time.getMonth()+1) +"/"+ time.getDate();
+		var mm = time.getMinutes();
+		var ss = time.getSeconds();
+		if(mm<10){
+			mm = "0"+mm;
+		}
+		if(ss<10){
+			ss = "0"+ss;
+		}
+		var nowTime = time.getHours() +":"+ mm /*+":"+ ss*/;
+		$(".time").html("<span>"+ nowTime +"</span><span>"+ day +"</span>");
+	}
+	//点击事件显示日历
+	$(".time").mousedown(function(){
+		goCalender("first");
+		$("#calender").toggle(10);
+		return false;
+	});
+
+	//阻止事件冒泡
+	$("#calender").mousedown(function(){
+		return false;
+	});
+
+
+	//日历
+	var today = new Date();
+	//当前的年月日先存一下
+	var nowy = today.getFullYear();
+	var nowm = today.getMonth();
+	var nowd = today.getDate();
+	//显示第几月
+	var showM = today.getMonth();
+	var calenderContent = $("#calenderContent");
+	var aBox = calenderContent.find(".box");
+
+	//点击前一月，后一月
+	var aBtns =  $("#calender .title a");
+	aBtns.eq(0).click(function(){
+		var obj = {innerHTML:""}; //用于排除下面方法中调用.innerHTML报错的问题
+		prevMouse(obj);
+	});
+	aBtns.eq(1).click(function(){
+		var obj = {innerHTML:""};
+		nextMouse(obj);
+	});
+
+
+	//点击今天
+	$("#calender .title button").click(function(){
+		var today = new Date();
+		showM = today.getMonth();
+		goCalender("first");
+	});
+
+
+	//生成日历的方法
+	function goCalender(first,nowDay){
+		var today = new Date();
+		if(!first){
+			today.setDate(1);
+			today.setMonth(showM);
+		}
+
+		var y = today.getFullYear();
+		var m = today.getMonth();
+		var d = today.getDay();
+		var firstday = new Date(y,m,1); //获取当月第一天
+		var firstday_d = firstday.getDay(); //确定1号为星期几 以补上月天数
+
+		//生成月份中的天数数组以确定当月有几天
+		var days_in_mouth = [31, 28+ifLeap(y), 31,30,31,30,31,31,30,31,30,31];  //二月比较特殊，得判断是否闰年，闰年29天
+		function ifLeap(year){
+			//如果当前年份能被4整除但是不能被100整除或者能被400整除，即可确定为闰年，返回1，否则返回0
+			return year%4==0 ? ( year%100!=0 ? 1 : ( year%400==0 ? 1 : 0 ) ) : 0;
+		}
+
+		//当月天数+1号前天数，除以7，就是行数了
+		var tr_nums = ( firstday_d + days_in_mouth[m] )/7;
+
+		//显示第一行星期几
+		$("#nowTime").html( y +"年"+ (m+1) + "月" );
+		var tableStr = "<table><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>";
+
+		//生成表格
+
+		if(firstday_d==0){ //表示当月的1号恰好是周日，那么我们就给数据前面多加一排上一个月的。（将firstday_d固定成7即可）
+			firstday_d = 7;
+		}
+		for(var i=0; i<7; i++){
+			tableStr += "<tr>";
+
+			for(var j=0; j<7; j++){
+				var num = i*7+j+1 - firstday_d;
+				//超出部分暂时用空替代，当前日期高亮
+				//num = (num<1 || num >days_in_mouth[m] ) ? "" : num ;
+				//前面部分补全
+				var ifOther = false;  //是否为超出日期的判断，以便添加类，设定class，来解决鼠标点击到td边框的框
+				if(num<1){
+					var prevNum = days_in_mouth[m-1];
+					if(!prevNum){ //跨年的情况，为上一年的12月，有31天
+						prevNum = 31
+					}
+					num = "<span onclick='prevMouse(this)' style='color: gray'>"+(prevNum + num) +"</span>";
+					ifOther = true;
+				}else if(num>days_in_mouth[m]){  //后面部分补全
+					num = "<span onclick='nextMouse(this)' style='color: gray'>"+(num-days_in_mouth[m]) +"</span>";
+					ifOther = true;
+				}
+
+				//如果是当前日期，则高亮
+				if( y==nowy && m == nowm && num==nowd){
+					num = "<span style='background: #3181d1;color:#fff'>"+num +"</span>"
+				}
+
+				if(nowDay && nowDay==num){
+					tableStr += "<td class='activeTd'>"+ num +"</td>";
+				}else{
+					if(ifOther){ //如果是超出的日期
+						tableStr += "<td class='other-mouse'>"+ num +"</td>";
+					}else{
+						tableStr += "<td>"+ num +"</td>";
+					}
+
+				}
+
+			}
+
+			tableStr += "</tr>";
+		}
+
+		//表格结束
+		tableStr += "</table>";
+		//aBox[0].innerHTML = tableStr;
+		aBox.eq(1).html(tableStr);
+		//aBox[2].innerHTML = tableStr;
+	}
+
+
+	//点击了上一个月的日期
+	function prevMouse(obj){
+
+		$(obj).parents("table").find(".activeTd").removeClass("activeTd");
+		$(obj).parent().addClass("activeTd");
+
+		showM--;
+		aBox.eq(2).html( aBox.eq(1).html() );
+		calenderContent.css({"transition":"left 0s","left":"-480px"});
+		setTimeout(function(){
+			calenderContent.css({"transition":"left 0.5s","left":"-240px"});
+		},10);
+		goCalender(false,obj.innerHTML);
+	}
+	//点击了下一个月的日期
+	function nextMouse(obj){
+		$(obj).parents("table").find(".activeTd").removeClass("activeTd");
+		$(obj).parent().addClass("activeTd");
+
+		showM++;
+		aBox.eq(0).html( aBox.eq(1).html() );
+		calenderContent.css({"transition":"left 0s","left":"0"});
+		setTimeout(function(){
+			calenderContent.css({"transition":"left 0.5s","left":"-240px"});
+		},10);
+		goCalender(false,obj.innerHTML);
+	}
+
+	//使用事件委托的方式绑定td的点击事件
+	calenderContent.on("click", "td" ,function(){
+		$(this).parents("table").find(".activeTd").removeClass("activeTd");
+		$(this).addClass("activeTd");
+	});
+	
+	
+	
+</script>
+
+</body>
+</html>
