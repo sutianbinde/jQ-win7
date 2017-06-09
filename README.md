@@ -3,10 +3,8 @@
 准备做一个和win7系统功能基本一致的项目，</br>
 演示：https://sutianbinde.github.io/jQ-win7/
 </br>
-
-
-
-
+<img src="https://github.com/sutianbinde/jekyll_demo/blob/gh-pages/img/deskTopDemo.png" />
+</br>
 
 已完成功能包括</br>
 </br>
