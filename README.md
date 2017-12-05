@@ -1,10 +1,7 @@
 # jQ-win7
 使用jQuery编写的仿win7桌面项目</br>
 准备做一个和win7系统功能基本一致的项目，</br>
-演示：https://sutianbinde.github.io/jQ-win7/
-</br></br>
-<img src="https://github.com/sutianbinde/jekyll_demo/blob/gh-pages/img/deskTopDemo.png" />
-</br>
+
 
 已完成功能包括</br>
 </br>
@@ -24,3 +21,7 @@
     下一月、上一月</br>
     点击前后月日期可切换</br>
     点击回到今天</br>
+演示：https://sutianbinde.github.io/jQ-win7/
+</br></br>
+<img src="https://github.com/sutianbinde/jekyll_demo/blob/gh-pages/img/deskTopDemo.png" />
+</br>
